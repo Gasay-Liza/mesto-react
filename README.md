@@ -1,10 +1,12 @@
 # Проект: Место(React)
-Данный проект представляет собой одностраничный сайт написанный с помощью JavaScript библиотеки React с помощью [Create React App](https://github.com/facebook/create-react-app).
+Данный проект представляет собой одностраничный сайт написанный с помощью JavaScript библиотеки React [Create React App](https://github.com/facebook/create-react-app).
 
 Проект "Место" - проект-галерея картинок(фотографий), где можно разместить новую фотографию, лайкнуть ее или удалить. Возможно взаимодействие с профилем страницы - возможно изменить текстовые данные профиля и аватар.
 ___
 
-
+### Посмотреть на gh-pages
+[https://gasay-liza.github.io/mesto-react/index.html ](https://gasay-liza.github.io/mesto-react/index.html )
+___
 ### Какие команды нужно выполнить для сборки и запуска проекта
 * Установите [Node.js](https://nodejs.org/en/download/)
 * Установите [Git Bash для Windows OS](https://gitforwindows.org/)
