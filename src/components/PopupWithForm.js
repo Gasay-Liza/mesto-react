@@ -24,7 +24,7 @@ function PopupWithForm({
                     <>
                         {children}
                         <button type="submit" className="popup__submit-btn">
-                            {buttonText}
+                            {buttonText || 'Сохранить'}
                         </button>
                     </>
                 </form>
