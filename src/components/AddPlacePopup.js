@@ -2,24 +2,29 @@ import React from 'react';
 import PopupWithForm from "./PopupWithForm";
 
 
-function AddPlacePopup({isOpen, onClose, onAddPlace}) {
-    const linkRef = React.useRef('');
-    const nameRef = React.useRef('');
-
+function AddPlacePopup({isOpen, onClose, onAddPlace, isLoading}) {
+    const [link, setLink] = React.useState();
+    const [name, setName] = React.useState();
     function handleAddPlaceSubmit(e) {
         e.preventDefault();
 
         onAddPlace({
-            name: nameRef.current.value,
-            link: linkRef.current.value
+            name,
+            link
         });
     }
+    function handleChangeName(e) {
+        setName(e.target.value);
+    }
 
+    function handleChangeLink(e) {
+        setLink(e.target.value);
+    }
     return (
         <PopupWithForm
             name={'add-card'}
             title={'Новое место'}
-            buttonText={'Создать'}
+            buttonText={isLoading? 'Сохранение...' : 'Сохранить'}
             isOpen={isOpen}
             onClose={onClose}
             onSubmit={handleAddPlaceSubmit}
@@ -34,7 +39,7 @@ function AddPlacePopup({isOpen, onClose, onAddPlace}) {
                     minLength={2}
                     maxLength={30}
                     required
-                    ref={nameRef}
+                    onChange={handleChangeName}
                 />
                 <span className="popup__error" id="name-error"/>
             </label>
@@ -46,7 +51,7 @@ function AddPlacePopup({isOpen, onClose, onAddPlace}) {
                     name="link"
                     id="link"
                     required
-                    ref={linkRef}
+                    onChange={handleChangeLink}
                 />
                 <span className="popup__error" id="link-error"/>
             </label>

@@ -4,7 +4,7 @@ import {CurrentUserContext} from "../contexts/CurrentUserContext";
 
 
 
-function EditProfilePopup({isOpen, onClose, onUpdateUser}) {
+function EditProfilePopup({isOpen, onClose, onUpdateUser, isLoading}) {
     const [name, setName] = React.useState("Жак-Ив Кусто");
     const [description, setDescription] = React.useState("Исследователь океана");
     const currentUser = React.useContext(CurrentUserContext);
@@ -30,14 +30,14 @@ function EditProfilePopup({isOpen, onClose, onUpdateUser}) {
     React.useEffect(() => {
         setName(currentUser.name);
         setDescription(currentUser.about);
-    }, [currentUser]);
+    }, [currentUser,isOpen]);
 
 
     return (
         <PopupWithForm
             name={'edit-profile'}
             title={'Редактировать профиль'}
-            buttonText={'Сохранить'}
+            buttonText={isLoading? 'Сохранение...' : 'Сохранить'}
             isOpen={isOpen}
             onClose={onClose}
             onSubmit={handleSubmit}
@@ -52,7 +52,7 @@ function EditProfilePopup({isOpen, onClose, onUpdateUser}) {
                     minLength={2}
                     maxLength={40}
                     required=""
-                    value={name}
+                    value={name || ''}
                     onChange={handleChangeName}
                 />
                 <span className="popup__error" id="username-error"/>
@@ -67,7 +67,7 @@ function EditProfilePopup({isOpen, onClose, onUpdateUser}) {
                     minLength={2}
                     maxLength={200}
                     required=""
-                    value={description}
+                    value={description  || ''}
                     onChange={handleChangeDescription}
                 />
                 <span className="popup__error" id="info-error"/>

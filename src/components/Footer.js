@@ -1,8 +1,8 @@
 import React from 'react';
-
+const date = new Date().getFullYear();
 function Footer() {
     return (
-        <footer className="footer">© 2022 Mesto Russia by Elizaveta Gasay</footer>
+        <footer className="footer" >{`© ${date} Mesto Russia by Elizaveta Gasay`}</footer>
     )
 }
 

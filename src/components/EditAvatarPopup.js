@@ -3,8 +3,8 @@ import PopupWithForm from "./PopupWithForm";
 
 
 
-function EditProfilePopup({isOpen, onClose, onUpdateAvatar}) {
-    const linkRef = React.useRef('https://gamemag.ru/images/cache/News/News167895/cbf161a6f0-1_350x250.jpg');
+function EditProfilePopup({isOpen, onClose, onUpdateAvatar, isLoading}) {
+    const linkRef = React.useRef();
 
     function handleSubmit(e) {
         e.preventDefault();
@@ -18,7 +18,7 @@ function EditProfilePopup({isOpen, onClose, onUpdateAvatar}) {
         <PopupWithForm
             name={'update-avatar'}
             title={'Обновить аватар'}
-            buttonText={'Сохранить'}
+            buttonText={isLoading? 'Сохранение...' : 'Сохранить'}
             isOpen={isOpen}
             onClose={onClose}
             onSubmit={handleSubmit}

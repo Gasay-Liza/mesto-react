@@ -19,6 +19,8 @@ function App() {
     const [selectedCard, setSelectedCard] = React.useState(null);
     const [currentUser, setCurrentUser] = React.useState({});
     const [cards, setCards] = React.useState([]);
+    const [isLoading, setIsLoading] = React.useState(false);
+    const isOpen = isEditAvatarPopupOpen || isEditProfilePopupOpen || isAddPlacePopupOpen || selectedCard
 
     React.useEffect(() => {
         api.getCards()
@@ -41,6 +43,7 @@ function App() {
     }, []);
 
     function handleUpdateUser(data) {
+        setIsLoading(true)
         api.setUserInfo({
             username: data.name,
             info: data.about
@@ -52,9 +55,13 @@ function App() {
             .catch((err) => {
                 console.log(`Ошибка: ${err}`);
             })
+            .finally(() => {
+                setIsLoading(false)
+            });
     }
 
     function handleUpdateCards(data) {
+        setIsLoading(true)
         api.createCard({
             name: data.name,
             link: data.link
@@ -66,9 +73,13 @@ function App() {
             .catch((err) => {
                 console.log(`Ошибка: ${err}`);
             })
+            .finally(() => {
+                setIsLoading(false)
+            });
     }
 
     function handleUpdateAvatar(data) {
+        setIsLoading(true)
         api.setUserAvatar({
             avatar: data.avatar
         })
@@ -79,6 +90,9 @@ function App() {
             .catch((err) => {
                 console.log(`Ошибка: ${err}`);
             })
+            .finally(() => {
+                setIsLoading(false)
+            });
     }
 
     function handleEditProfileClick() {
@@ -100,6 +114,21 @@ function App() {
         setSelectedCard(null)
     }
 
+    React.useEffect(() => {
+        function closeByEscape(evt) {
+            if (evt.key === 'Escape') {
+                closeAllPopups();
+            }
+        }
+
+        if (isOpen) { // навешиваем только при открытии
+            document.addEventListener('keydown', closeByEscape);
+            return () => {
+                document.removeEventListener('keydown', closeByEscape);
+            }
+        }
+    }, [isOpen])
+
     function handleCardClick(card) {
         setSelectedCard(card);
     }
@@ -112,7 +141,6 @@ function App() {
         api.changeLikeCardStatus(card._id, isLiked).then((newCard) => {
             setCards((state) => state.map((c) => c._id === card._id ? newCard : c));
         })
-
             .catch((err) => {
                 console.log(`Ошибка: ${err}`);
             });
@@ -153,6 +181,7 @@ function App() {
                         isOpen={isEditProfilePopupOpen}
                         onClose={closeAllPopups}
                         onUpdateUser={handleUpdateUser}
+                        isLoading={isLoading}
                     />
 
                     {/*Форма обновления аватара*/}
@@ -160,6 +189,7 @@ function App() {
                         isOpen={isEditAvatarPopupOpen}
                         onClose={closeAllPopups}
                         onUpdateAvatar={handleUpdateAvatar}
+                        isLoading={isLoading}
                     />
 
                     {/*Форма обновления карточек*/}
@@ -167,6 +197,7 @@ function App() {
                         isOpen={isAddPlacePopupOpen}
                         onClose={closeAllPopups}
                         onAddPlace={handleUpdateCards}
+                        isLoading={isLoading}
                     />
 
                     {/*Форма согласия*/}

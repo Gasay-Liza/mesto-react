@@ -9,7 +9,7 @@ function PopupWithForm({
     onSubmit
 }) {
     return (
-        <div className={`popup popup_type_${name}`+(isOpen && " popup_is-opened")}>
+        <div className={`popup popup_type_${name} ${isOpen && "popup_is-opened"}`}>
             <div className="popup__container">
                 <button
                   className="popup__close-icon"
@@ -21,14 +21,11 @@ function PopupWithForm({
                     className={`popup__form popup__${name}-form`}
                     name={`popup__${name}-form`}
                     onSubmit={onSubmit}
-                    noValidate
                 >
-                    <>
                         {children}
                         <button type="submit" className="popup__submit-btn">
                             {buttonText || 'Сохранить'}
                         </button>
-                    </>
                 </form>
             </div>
         </div>
