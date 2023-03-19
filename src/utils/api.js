@@ -1,5 +1,3 @@
-
-
 class Api {
     constructor({baseUrl, headers}) {
         this._baseUrl = baseUrl;
@@ -21,21 +19,21 @@ class Api {
     }
 
     // Получение карточек с сервера
-    getCards = () => {
+    getCards() {
         return this._request(`${this._baseUrl}/cards`, {
             headers: this._headers,
         })
     }
 
     // Получение данных профиля с сервера
-    getUserInfo = () => {
+    getUserInfo() {
         return this._request(`${this._baseUrl}/users/me`, {
             headers: this._headers,
         })
     }
 
     // Удаление карточки
-    deleteCard = (id) => {
+    deleteCard(id) {
         return this._request(`${this._baseUrl}/cards/` + id, {
             method: 'DELETE',
             headers: this._headers,
@@ -43,7 +41,7 @@ class Api {
     }
 
     // Загрузка карточки на сервер
-    createCard = (data) => {
+    createCard(data) {
         return this._request(`${this._baseUrl}/cards`, {
             method: 'POST',
             headers: this._headers,
@@ -55,7 +53,7 @@ class Api {
     }
 
     // Загрузка информации профиля на сервер
-    setUserInfo = (data) => {
+    setUserInfo(data) {
         return this._request(`${this._baseUrl}/users/me`, {
             method: 'PATCH',
             headers: this._headers,
@@ -67,7 +65,7 @@ class Api {
     }
 
     // Загрузка лайка карточки на сервер
-    setLike = (id) => {
+    setLike(id) {
         return this._request(`${this._baseUrl}/cards/${id}/likes`, {
             method: 'PUT',
             headers: this._headers,
@@ -75,7 +73,7 @@ class Api {
     }
 
     // Удаление лайка карточки с сервера
-    deleteLike = (id) => {
+    deleteLike(id) {
         return this._request(`${this._baseUrl}/cards/${id}/likes`, {
             method: 'DELETE',
             headers: this._headers,
@@ -83,7 +81,7 @@ class Api {
     }
 
     // Редактирование профиля
-    editAvatar = (data) => {
+    setUserAvatar(data) {
         return this._request(`${this._baseUrl}/users/me/avatar`, {
             method: 'PATCH',
             headers: this._headers,
@@ -91,6 +89,14 @@ class Api {
                 avatar: data.avatar
             })
         })
+    }
+
+    changeLikeCardStatus(cardId, isLiked) {
+        if (isLiked) {
+            return this.deleteLike(cardId);
+        } else {
+            return this.setLike(cardId);
+        }
     }
 }
 
