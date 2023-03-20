@@ -3,8 +3,8 @@ import PopupWithForm from "./PopupWithForm";
 
 
 function AddPlacePopup({isOpen, onClose, onAddPlace, isLoading}) {
-    const [link, setLink] = React.useState();
-    const [name, setName] = React.useState();
+    const [link, setLink] = React.useState("");
+    const [name, setName] = React.useState("");
     function handleAddPlaceSubmit(e) {
         e.preventDefault();
 
@@ -39,6 +39,7 @@ function AddPlacePopup({isOpen, onClose, onAddPlace, isLoading}) {
                     minLength={2}
                     maxLength={30}
                     required
+                    value={name || ''}
                     onChange={handleChangeName}
                 />
                 <span className="popup__error" id="name-error"/>
@@ -51,6 +52,7 @@ function AddPlacePopup({isOpen, onClose, onAddPlace, isLoading}) {
                     name="link"
                     id="link"
                     required
+                    value={link || ''}
                     onChange={handleChangeLink}
                 />
                 <span className="popup__error" id="link-error"/>
